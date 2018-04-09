@@ -1,0 +1,80 @@
+<form name="insuranceForm" class="form-horizontal" role="form" enctype="multipart/form-data">
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="ownerName">Vehicle Owner Name</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="text" class="form-control" placeholder="Vehicle Owner Name" name="ownerName" ng-model="Insurance.ownerName" ng-minlength="3" required/>
+				<small class="errorMessage" data-ng-show="insuranceForm.ownerName.$dirty && insuranceForm.ownerName.$error.required"> Enter Insurance Name.</small>
+			<small class="errorMessage" data-ng-show="insuranceForm.ownerName.$dirty && insuranceForm.ownerName.$error.minlength"> Invalid Insurance Name.</small>
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="vehicleNumber">Vehicle Number</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="text" class="form-control" placeholder="Vehicle Number" name="vehicleNumber" ng-model="Insurance.vehicleNumber" ng-minlength="10" ng-maxlength="10" required  />
+				<small class="errorMessage" data-ng-show="insuranceForm.vehicleNumber.$dirty && insuranceForm.vehicleNumber.$error.required"> Enter vehicleNumber.</small>
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="mobileNumber">Mobile Number</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="number" class="form-control" placeholder="Mobile Number" name="mobileNumber" ng-model="Insurance.mobileNumber" ng-minlength="10" ng-maxlength="10" required />
+			</span> </div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="policyNumber">Policy Number</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="text" class="form-control" placeholder="Policy Number" name="policyNumber" ng-model="Insurance.policyNumber" ng-minlength="5" required  />
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="policyCompany">Policy Company</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="text" class="form-control" placeholder="Policy Company" name="policyCompany" ng-model="Insurance.policyCompany" ng-minlength="3" required  />
+			</span>
+		</div>
+	</div>
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="expiryDate">Expiry Date</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="date" class="form-control" name="expiryDate" ng-model="Insurance.expiryDate" required  />
+			</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="rcImage">RC Image</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="file" class="form-control" id="rcImage" data-url="uploads" name="rcImage" ng-model="myFile"
+                       onchange="angular.element(this).scope().uploadedRcImage(this)" />
+			</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<label class="col-sm-4 control-label no-padding-right" for="policyImage">Policy Image</label>
+		<div class="col-sm-3">
+			<span class="block input-icon input-icon-right">
+				<input type="file" data-url="uploads" id="policyImage"  class="form-control" name="policyImage" ng-model="Insurance.policyImage"
+                       onchange="angular.element(this).scope().uploadedPolicyImage(this)" />
+			</span>
+		</div>
+	</div>
+
+	<div class="form-group">
+		<div class="text-center">
+			<button type="submit" class="btn btn-primary btn-lg" ng-click="addInsurance(Insurance)" data-ng-disabled="insuranceForm.$invalid" required>
+				Add Insurance
+			</button>
+		</div>
+
+</form>

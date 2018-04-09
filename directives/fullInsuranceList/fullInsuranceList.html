@@ -1,0 +1,93 @@
+<div class="container">
+    <div class="well">
+        <h4>Insurance List </h4></div>
+    <div class="row">
+        <div class="col-md-2"><p>PageSize:</p>
+            <select ng-model="entryLimit" class="form-control">
+                <option>5</option>
+                <option>10</option>
+                <option>20</option>
+                <option>50</option>
+                <option>100</option>
+            </select>
+        </div>
+        <div class="col-md-3"><p>Filter:</p>
+            <input type="text" ng-model="search" ng-change="filter()" placeholder="Filter" class="form-control" />
+        </div>
+        <div class="col-md-4">
+            <h5>Filtered {{ filtered.length }} of {{ totalItems}} total items</h5>
+        </div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12" ng-show="filteredItems > 0">
+            <table  class="table table-bordered table-hover table-condensed" id ="filtertable">
+                <thead>
+                <th>Owner Name&nbsp;<a ng-click="sort_by('ownerName');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Vehicle Number&nbsp;<a ng-click="sort_by('vehicleNumber');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Mobile Number&nbsp;<a ng-click="sort_by('mobileNumber');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Policy Number&nbsp;<a ng-click="sort_by('policyNumber');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Policy Company&nbsp;<a ng-click="sort_by('policyCompany');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Expiry Date&nbsp;<a ng-click="sort_by('expiryDate');"><i class="glyphicon glyphicon-sort"></i></a></th>
+                <th>Download RC</th>
+                <th>Download Policy</th>
+                <th>Delete Item</th>
+                </thead>
+                <tbody>
+                <tr ng-repeat="data in filtered = (list | filter:search | orderBy : predicate : reverse) | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                    <td>{{data.ownerName}}</td>
+                    <td>{{data.vehicleNumber}}</td>
+                    <td>{{data.mobileNumber}}</td>
+                    <td>{{data.policyNumber}}</td>
+                    <td>{{data.policyCompany}}</td>
+                    <td>{{data.expiryDate}}</td>
+                    <td>
+                        <a  ng-if="data.rcImage !== '' " href="uploads/{{data.rcImage}}" download>Download</a>
+                        <span ng-if="data.rcImage === '' ">No Image</span>
+                    </td>
+                    <td>
+                        <a ng-if="data.policyImage !== '' " href="uploads/{{data.policyImage}}" download>Download</a>
+                        <span ng-if="data.policyImage === '' ">No Image</span>
+                    </td>
+                    <td>
+                        <button class="btn btn-danger"  data-toggle="modal" data-target="#deleteItem" ng-click="list.selected = data">Delete</button>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-12" ng-show="filteredItems == 0">
+            <div class="col-md-12">
+                <h4>No customers found</h4>
+            </div>
+        </div>
+        <div class="col-md-12 text-center" ng-show="filteredItems > 0">
+            <div pagination="" page="currentPage" on-select-page="setPage(page)" boundary-links="true" total-items="filteredItems" items-per-page="entryLimit" class="pagination-small" previous-text="&laquo;" next-text="&raquo;"></div>
+        </div>
+    </div>
+
+
+
+    <div id="deleteItem" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title text-center">Remove Item</h4>
+                </div>
+                <div class="modal-body">
+                    Do you want to remove Insurance with policy Number <strong>{{list.selected.policyNumber}} </strong>
+                    and Name <strong>{{list.selected.ownerName}}</strong>?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary" ng-click="deleteInsurance(list.selected);" onclick="$('.modal').modal('hide')">
+                        Remove Insurance
+                    </button>
+                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
